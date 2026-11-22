@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dhruv-Deku — Quote Calculators &amp; Booking Forms</title>
+<meta name="description" content="I build custom instant-quote calculators and booking forms for service business websites. Visitors see a price, you get the lead.">
+<meta property="og:title" content="Dhruv-Deku — Quote calculators & booking forms for service businesses">
+<meta property="og:description" content="Visitors see a price instantly. You get the lead in your inbox, ready to call. See the live demos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --surface-2: #f3f3f1;
+    --ink: #0c0e13;
+    --muted: #5d636e;
+    --line: #e6e6e3;
+    --accent: #4f46e5;
+    --accent-ink: #ffffff;
+    --accent-soft: #eef0ff;
+    --good: #0f766e;
+    --shadow: 0 1px 2px rgba(12,14,19,.05), 0 12px 32px rgba(12,14,19,.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d0f14; --surface: #151821; --surface-2: #1b1f2a; --ink: #f1f2f5; --muted: #9aa1ad; --line: #262b37;
+      --accent: #8b85ff; --accent-ink: #0d0f14; --accent-soft: #1e1f3a; --good: #5eead4; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d0f14; --surface: #151821; --surface-2: #1b1f2a; --ink: #f1f2f5; --muted: #9aa1ad; --line: #262b37;
+    --accent: #8b85ff; --accent-ink: #0d0f14; --accent-soft: #1e1f3a; --good: #5eead4; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: "Manrope", system-ui, -apple-system, Segoe UI, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+  section { padding: 72px 0; }
+  h2 { font-size: clamp(26px, 3.4vw, 36px); line-height: 1.15; letter-spacing: -.025em; margin: 0 0 10px; }
+  .lede { color: var(--muted); font-size: 18px; margin: 0 0 32px; max-width: 60ch; }
+  .label { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+
+  header.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { font-weight: 800; letter-spacing: -.02em; font-size: 18px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .brand-dot { width: 26px; height: 26px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-size: 14px; font-weight: 800; }
+  .top nav { display: flex; gap: 24px; align-items: center; font-size: 15px; font-weight: 600; color: var(--muted); }
+  .top nav a { text-decoration: none; }
+  .top nav a:hover { color: var(--ink); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 800; padding: 13px 20px; border-radius: 12px; border: 0; cursor: pointer; font-size: 16px; transition: transform .1s, filter .15s; }
+  .btn:hover { filter: brightness(1.08); }
+  .btn:active { transform: translateY(1px); }
+  .btn.small { padding: 9px 14px; font-size: 14px; border-radius: 10px; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+  .btn.ghost:hover { background: var(--surface-2); filter: none; }
+
+  .hero { padding: 80px 0 56px; }
+  .hero h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.04; letter-spacing: -.035em; margin: 0 0 18px; max-width: 15ch; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { font-size: clamp(17px, 2vw, 20px); color: var(--muted); margin: 0 0 28px; max-width: 54ch; }
+  .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .proof { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 30px; color: var(--muted); font-size: 15px; font-weight: 600; }
+  .proof span::before { content: "✓"; color: var(--good); font-weight: 800; margin-right: 8px; }
+
+  .demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .demo { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+  .preview { position: relative; height: 300px; overflow: hidden; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+  .preview iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 1100px; border: 0; transform-origin: 0 0; pointer-events: none; }
+  .preview .open { position: absolute; inset: 0; z-index: 1; }
+  .demo-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .demo-body h3 { margin: 0; font-size: 21px; letter-spacing: -.015em; }
+  .demo-body p { margin: 0; color: var(--muted); }
+  .feat { list-style: none; padding: 0; margin: 4px 0 8px; display: grid; gap: 6px; font-size: 15px; }
+  .feat li::before { content: "→"; color: var(--accent); font-weight: 800; margin-right: 8px; }
+  .demo-body .btn { margin-top: auto; align-self: flex-start; }
+
+  .why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .why div { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .why b { display: block; font-size: 17px; margin-bottom: 6px; }
+  .why span { color: var(--muted); font-size: 15px; }
+
+  .process { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; counter-reset: s; }
+  .process li { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; counter-increment: s; }
+  .process li::before { content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 800; margin-bottom: 12px; }
+  .process b { display: block; margin-bottom: 4px; }
+  .process span { color: var(--muted); font-size: 14px; }
+
+  .pricing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+  .plan { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 26px; display: flex; flex-direction: column; }
+  .plan.featured { border: 2px solid var(--accent); box-shadow: var(--shadow); position: relative; }
+  .plan.featured .flag { position: absolute; top: -12px; left: 24px; background: var(--accent); color: var(--accent-ink); font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 999px; letter-spacing: .04em; }
+  .plan h3 { margin: 0 0 4px; font-size: 18px; }
+  .plan .price { font-size: 40px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; margin: 8px 0 2px; }
+  .plan .price small { font-size: 16px; color: var(--muted); font-weight: 600; letter-spacing: 0; }
+  .plan .sub { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+  .plan ul { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 8px; font-size: 15px; }
+  .plan li::before { content: "✓"; color: var(--good); font-weight: 800; margin-right: 8px; }
+  .plan .btn { margin-top: auto; }
+
+  .work { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .work a { display: block; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; transition: border-color .15s, transform .15s; }
+  .work a:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .work b { display: block; font-size: 17px; margin-bottom: 4px; }
+  .work span { color: var(--muted); font-size: 15px; }
+  .work em { display: inline-block; font-style: normal; font-size: 12px; font-weight: 800; letter-spacing: .05em; color: var(--accent); margin-top: 10px; }
+
+  .faq { display: grid; gap: 12px; max-width: 760px; }
+  .faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; }
+  .faq summary { cursor: pointer; font-weight: 700; font-size: 16px; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--accent); font-weight: 800; font-size: 20px; line-height: 1; }
+  .faq details[open] summary::after { content: "−"; }
+  .faq p { color: var(--muted); margin: 10px 0 0; }
+
+  .contact { text-align: center; }
+  .contact-card { background: var(--ink); color: var(--bg); border-radius: 24px; padding: 56px 24px; }
+  .contact-card h2 { color: var(--bg); }
+  .contact-card p { color: color-mix(in srgb, var(--bg) 70%, transparent); font-size: 18px; margin: 0 auto 26px; max-width: 52ch; }
+  .contact-card .btn { background: var(--bg); color: var(--ink); }
+  .contact-card .mail { display: block; margin-top: 14px; font-size: 15px; color: color-mix(in srgb, var(--bg) 70%, transparent); overflow-wrap: anywhere; }
+
+  footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .theme-btn { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; font-size: 13px; }
+
+  @media (max-width: 900px) {
+    .demos, .work { grid-template-columns: minmax(0, 1fr); }
+    .why, .pricing { grid-template-columns: minmax(0, 1fr); }
+    .process { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .top nav .hide-sm { display: none; }
+  }
+  @media (max-width: 560px) {
+    section { padding: 52px 0; }
+    .hero { padding: 48px 0 32px; }
+    .process { grid-template-columns: minmax(0, 1fr); }
+    .preview { height: 230px; }
+    .top nav { gap: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><span class="brand-dot">D</span> Dhruv-Deku</a>
+    <nav aria-label="Main">
+      <a href="#demos">Demos</a>
+      <a class="hide-sm" href="#process">How it works</a>
+      <a class="hide-sm" href="#pricing">Pricing</a>
+      <a class="btn small" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <span class="label">For service businesses</span>
+      <h1>Turn website visitors into <em>booked jobs.</em></h1>
+      <p>I build custom quote calculators and booking forms for your website. Customers see their price in seconds instead of calling around. You get every lead in your inbox with all the details, ready to call.</p>
+      <div class="ctas">
+        <a class="btn" href="#demos">Try the live demos</a>
+        <a class="btn ghost" href="#contact">Get one for my site</a>
+      </div>
+      <div class="proof"><span>Working preview in 48 hours</span><span>Works with any website</span><span>You own it, no monthly lock-in</span></div>
+    </div>
+  </section>
+
+  <section id="demos" style="padding-top:24px">
+    <div class="wrap">
+      <span class="label">Live demos</span>
+      <h2>Click around. These work.</h2>
+      <p class="lede">Each one is built for a fictional business. Yours would match your brand, your services and your real prices.</p>
+      <div class="demos">
+        <article class="demo">
+          <div class="preview"><iframe src="cleaning-quote/" title="Cleaning quote calculator preview" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe><a class="open" href="cleaning-quote/" aria-label="Open the cleaning quote demo"></a></div>
+          <div class="demo-body">
+            <h3>Instant cleaning quote + booking</h3>
+            <p>For cleaning companies, maid services and other home services.</p>
+            <ul class="feat">
+              <li>Price updates live as customers choose</li>
+              <li>Recurring discounts that push weekly plans</li>
+              <li>Books the date, then emails you the full order</li>
+            </ul>
+            <a class="btn" href="cleaning-quote/">Open demo</a>
+          </div>
+        </article>
+        <article class="demo">
+          <div class="preview"><iframe src="roofing-estimate/" title="Roofing estimate tool preview" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe><a class="open" href="roofing-estimate/" aria-label="Open the roofing estimate demo"></a></div>
+          <div class="demo-body">
+            <h3>Roof estimate + lead sorting</h3>
+            <p>For roofers, HVAC, solar, remodelers and other big-ticket trades.</p>
+            <ul class="feat">
+              <li>Price range from home size, pitch and material</li>
+              <li>Photo upload so you can quote faster</li>
+              <li>Leads tagged by urgency and job value</li>
+            </ul>
+            <a class="btn" href="roofing-estimate/">Open demo</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:24px">
+    <div class="wrap">
+      <span class="label">Why it works</span>
+      <h2>People want a price before they pick up the phone.</h2>
+      <p class="lede">Most service websites say "call for a quote". Many visitors don't, and they leave for a competitor who shows a number.</p>
+      <div class="why">
+        <div><b>More leads from the same traffic</b><span>A price tool gives visitors a reason to stay and leave their details, instead of bouncing.</span></div>
+        <div><b>Better leads</b><span>You see the job, the budget and the timeline before you call, so you call the best ones first.</span></div>
+        <div><b>Less time on the phone</b><span>Fewer "how much for…" calls. Customers arrive already knowing the ballpark.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" style="padding-top:24px">
+    <div class="wrap">
+      <span class="label">How it works</span>
+      <h2>From first message to live on your site in about a week.</h2>
+      <p class="lede">No meetings needed if you'd rather not. Everything can happen over email.</p>
+      <ol class="process">
+        <li><b>Tell me how you price</b><span>Your services, rates, extras and where leads should go.</span></li>
+        <li><b>Preview in 48 hours</b><span>A working version on a private link, in your colors.</span></li>
+        <li><b>Two rounds of changes</b><span>Tweak wording, prices and steps until it feels right.</span></li>
+        <li><b>I install it</b><span>WordPress, Wix, Squarespace, Webflow, Shopify or custom.</span></li>
+        <li><b>2 weeks of free fixes</b><span>If anything is off after launch, I fix it.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="pricing" style="padding-top:24px">
+    <div class="wrap">
+      <span class="label">Pricing</span>
+      <h2>Simple, one-time pricing.</h2>
+      <p class="lede">50% to start, 50% when it's live on your site. Paying through Upwork works too.</p>
+      <div class="pricing">
+        <div class="plan">
+          <h3>Starter</h3>
+          <div class="price">$150</div>
+          <p class="sub">Intro price for my first 5 clients</p>
+          <ul>
+            <li>Quote calculator for one service</li>
+            <li>Contact form with lead email</li>
+            <li>Matched to your brand</li>
+            <li>Installed on your site</li>
+          </ul>
+          <a class="btn ghost" href="#contact">Start with Starter</a>
+        </div>
+        <div class="plan featured">
+          <span class="flag">MOST POPULAR</span>
+          <h3>Full booking tool</h3>
+          <div class="price">$300<small>–$500</small></div>
+          <p class="sub">Depends on how many services and steps</p>
+          <ul>
+            <li>Multiple services, extras and discounts</li>
+            <li>Date booking and photo upload</li>
+            <li>Leads to email + Google Sheet or CRM</li>
+            <li>Urgency and job-value tagging</li>
+            <li>Mobile-first, fast loading</li>
+          </ul>
+          <a class="btn" href="#contact">Get a quote</a>
+        </div>
+        <div class="plan">
+          <h3>Care plan</h3>
+          <div class="price">$40<small>/month</small></div>
+          <p class="sub">Optional. Cancel any time.</p>
+          <ul>
+            <li>Price and service updates</li>
+            <li>Small changes each month</li>
+            <li>I check it keeps working</li>
+          </ul>
+          <a class="btn ghost" href="#contact">Ask about care</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:24px">
+    <div class="wrap">
+      <span class="label">Other things I've built</span>
+      <h2>Bigger projects, same care.</h2>
+      <p class="lede">Hackathon and personal projects, from VR to data tools.</p>
+      <div class="work">
+        <a href="https://dhruv-deku.github.io/entangled-quantum-lab/"><b>Entangled</b><span>A hands-on quantum physics lab for Meta Quest headsets, with 29 interactive experiments. Runs in the browser.</span><em>OPEN LIVE APP →</em></a>
+        <a href="https://github.com/Dhruv-Deku/fireledger"><b>FireLedger</b><span>A wildfire hotspot calendar for any area from 2000 to today, combining two NASA satellite datasets. Built for NASA Space Apps 2026.</span><em>VIEW CODE →</em></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="padding-top:24px">
+    <div class="wrap">
+      <span class="label">Questions</span>
+      <h2>Common questions</h2>
+      <div class="faq" style="margin-top:24px">
+        <details><summary>Will it work with my website?</summary><p>Yes. If your site lets you add an embed code or a custom HTML block (WordPress, Wix, Squarespace, Webflow, Shopify and most others do), it works. I can also host it on its own page and you link to it.</p></details>
+        <details><summary>Do I own it?</summary><p>Yes. Once it's paid for, the tool is yours. There's no monthly fee unless you choose the care plan.</p></details>
+        <details><summary>What if my prices change?</summary><p>Small price changes are free for the first 2 weeks. After that I can update them for you, or the care plan covers it.</p></details>
+        <details><summary>Where do the leads go?</summary><p>To your email by default. They can also go to a Google Sheet, your CRM, or a text message.</p></details>
+        <details><summary>How do I pay?</summary><p>50% to start and 50% once it's live, by card or bank transfer. If you prefer, we can work through Upwork.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" style="padding-top:24px">
+    <div class="wrap">
+      <div class="contact-card">
+        <h2>Want one for your business?</h2>
+        <p>Send me your website and a line about how you price. I'll reply within a day with what I'd build and a fixed price.</p>
+        <a class="btn" href="mailto:alwaysworking.7077@gmail.com?subject=Quote%20tool%20for%20my%20website">Email me</a>
+        <span class="mail">alwaysworking.7077@gmail.com</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> Dhruv-Deku</span>
+    <button class="theme-btn" id="theme" type="button">Toggle theme</button>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Scale the live demo previews to fit their cards
+  const fit = () => document.querySelectorAll('.preview').forEach(p => {
+    const f = p.querySelector('iframe');
+    f.style.transform = `scale(${p.clientWidth / 1280})`;
+  });
+  addEventListener('resize', fit);
+  fit();
+
+  const root = document.documentElement;
+  try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  document.getElementById('theme').addEventListener('click', () => {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  });
+</script>
+</body>
+</html>
